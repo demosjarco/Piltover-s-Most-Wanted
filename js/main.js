@@ -28,6 +28,11 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 							// Just skip
 							if (counter1 < Object.keys(summonerList).length) {
 								manualForLoop1(Object.keys(summonerList));
+							} else {
+								if (addedNewGames) {
+									// Go get the new matches
+									goThroughMatchList();
+								}
 							}
 						},
 						dataType: 'json',
