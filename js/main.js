@@ -17,7 +17,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 				var summoner = summonerList[arr[counter1]];
 				counter1++;
 				
-				if (!summoner["checked"]) {
+				if (!summoner["recentGamesLoaded"]) {
 					console.log(summoner);
 					
 					$.ajax({
@@ -35,15 +35,27 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 							console.log(data);
 							
 							if (data["totalGames"] > 0) {
-								// For each game, check matchId if exists in matchIds
-								// var b = firebaseRef.child("matchIds").child(INSERT MATCH ID HERE).exists(); b is boolean
-								// If no -> add to database and change addedNewGames to true
-							} else {
-								// No games played this period
-								firebaseRef.child("summonerIds/" + summoner["summonerId"]).update({
-									checked: true
+								var matches = data["matches"];
+								
+								firebaseRef.child("matchIds").once("value", function(snapshot) {
+									for (var x = 0; x < matches.length; x++) {
+										var matchIdValue = matches[x]["matchId"];
+										
+										if (!snapshot.child('' + matchIdValue).exists()) {
+											var temp = {};
+											temp[matchIdValue] = {summonersLoaded: false, bannedChampionsLoaded: false, matchId: matchIdValue};
+											firebaseRef.child("matchIds").update(temp);
+											
+											addedNewGames = true;
+										}
+									}
 								});
 							}
+							
+							// Marked as recentGamesLoaded
+							firebaseRef.child("summonerIds/" + summoner["summonerId"]).update({
+								recentGamesLoaded: true
+							});
 							
 							// Step through summoner list
 							if (counter1 < Object.keys(summonerList).length) {
