@@ -37,18 +37,18 @@ footer img { float: left; }
 
 <body>
 <img id="piltLogo" src="images/Piltover_Crest_icon.png" />
-<audio id="Muuuuuuuuuuuuuuuuuuuuundooooooooooooooooooooooooough" autoplay>
+<audio id="Muuuuuuuuuuuuuuuuuuuuundooooooooooooooooooooooooough">
 	<source src="audio/Mundo_Startup_Sound.mp3" type="audio/mp3" />
 </audio>
 <footer>
 	<img src="images/Definetly_Not_Blitzcrank_Poro_Icon.png" width="60">
 	<p>This project was definitely not created by blitzcrank. This product is not endorsed, certified or otherwise approved in any way by Riot Games, Inc. or any of its affiliates.</p>
 </footer>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script>
-var audio = document.getElementById("Muuuuuuuuuuuuuuuuuuuuundooooooooooooooooooooooooough");
-audio.onended = function() {
+$.delay(3000, function(){
 	window.location.href = "home.html";
-};
+});
 </script>
 </body>
 </html>
