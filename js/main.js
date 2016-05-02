@@ -1,5 +1,3 @@
-// https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/44838497?beginTime=1461351600000&endTime=1461610800000&api_key=
-
 var firebaseRef = new Firebase("https://pilt-most-want.firebaseio.com/");
 
 firebaseRef.child("apiControl/apiKey").once("value", function(key) {
