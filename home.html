@@ -9,6 +9,15 @@
 <body>
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+<script>
+var firebaseRef = new Firebase("https://pilt-most-want.firebaseio.com/");
+firebaseRef.once("value", function(snapshot) {
+	var summoners = snapshot.val()["summonerIds"];
+	var games = snapshot.val()["matchIds"];
+	console.log("Summoners loaded :" + Object.keys(summoners).length);
+	console.log("Games loaded :" + Object.keys(games).length);
+});
+</script>
 <script src="js/main.js"></script>
 </body>
 </html>
