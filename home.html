@@ -11,6 +11,16 @@
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script>
 var firebaseRef = new Firebase("https://pilt-most-want.firebaseio.com/");
+// Reset database
+/*firebaseRef.child("bannedChamps").set({
+	0: false
+});
+firebaseRef.child("summonerIds").set({
+	0: false
+});
+firebaseRef.child("matchIds").set({
+	0: false
+});*/
 firebaseRef.once("value", function(snapshot) {
 	var summoners = snapshot.val()["summonerIds"];
 	var games = snapshot.val()["matchIds"];
