@@ -37,7 +37,7 @@ footer img { float: left; }
 
 <body>
 <img id="piltLogo" src="images/Piltover_Crest_icon.png" />
-<audio id="Muuuuuuuuuuuuuuuuuuuuundooooooooooooooooooooooooough">
+<audio id="Muuuuuuuuuuuuuuuuuuuuundooooooooooooooooooooooooough" autoplay>
 	<source src="audio/Mundo_Startup_Sound.mp3" type="audio/mp3" />
 </audio>
 <footer>
@@ -46,9 +46,10 @@ footer img { float: left; }
 </footer>
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script>
-$.delay(3000, function(){
+var t = setTimeout("goToHome()", 3000);
+function goToHome() {
 	window.location.href = "home.html";
-});
+};
 </script>
 </body>
 </html>
