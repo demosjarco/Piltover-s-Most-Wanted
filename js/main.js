@@ -21,6 +21,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 						url: 'https://na.api.pvp.net/api/lol/na/v2.2/matchlist/by-summoner/' + summoner["summonerId"] + '?beginTime=1461351600000&endTime=1461610800000&api_key=' + key.val(),
 						async: true,
 						error: function(errorContent) {
+							console.log(errorContent);
 							// Just skip
 							if (counter1 < Object.keys(summonerList).length) {
 								manualForLoop1(Object.keys(summonerList));
