@@ -1,3 +1,6 @@
+// Tree searching algorithm
+// See readme for code logic
+
 var firebaseRef = new Firebase("https://pilt-most-want.firebaseio.com/");
 // Reset database
 /*firebaseRef.child("bannedChamps").set({
@@ -243,7 +246,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 					
 					var counter2 = 0;
 					function manualForLoop2(arr2) {
-						var summonerId = summonerIdList[arr1[counter2]]["summonerId"];
+						var summonerId = summonerIdList[arr2[counter2]]["summonerId"];
 						counter2++;
 						
 						$.ajax({
@@ -254,7 +257,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 								console.log(errorContent);
 								// Just skip
 								if (counter2 < Object.keys(summonerIdList).length) {
-									manualForLoop1(Object.keys(summonerIdList));
+									manualForLoop2(Object.keys(summonerIdList));
 								} else {
 									// Step through banned champ list
 									if (counter1 < Object.keys(bannedChampList).length) {
@@ -264,37 +267,41 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 							},
 							dataType: 'json',
 							success: function(data) {
-								var champLevel = data["championLevel"];
-								var champPoints = data["championPoints"];
+								var champLevel = 0;
+								var champPoints = 0;
+								if (data) {
+									champLevel = data["championLevel"];
+									champPoints = data["championPoints"];
+								}
 								
 								firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).once("value", function(snapshot) {
 									if (snapshot.child("championLevel").exists()) {
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championLevel").update({
-											summonerId: champLevel
-										});
+										var temp = {};
+										temp[summonerId] = champLevel;
+										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championLevel").update(temp);
 									} else {
+										var temp = {};
+										temp[summonerId] = champLevel;
 										firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-											championLevel: {
-												summonerId: champLevel
-											}
+											championLevel: temp
 										});
 									}
 									
 									if (snapshot.child("championPoints").exists()) {
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championPoints").update({
-											summonerId: champPoints
-										});
+										var temp = {};
+										temp[summonerId] = champPoints;
+										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championPoints").update(temp);
 									} else {
+										var temp = {};
+										temp[summonerId] = champPoints;
 										firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-											championPoints: {
-												summonerId: champPoints
-											}
+											championPoints: temp
 										});
 									}
 									
 									// Step through banned champ list
 									if (counter2 < Object.keys(summonerIdList).length) {
-										manualForLoop1(Object.keys(summonerIdList));
+										manualForLoop2(Object.keys(summonerIdList));
 									} else {
 										// Step through banned champ list
 										if (counter1 < Object.keys(bannedChampList).length) {
@@ -306,7 +313,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 						});
 					}
 					// Run first time
-					manualForLoop1(Object.keys(summonerIdList));
+					manualForLoop2(Object.keys(summonerIdList));
 				});
 			}
 			// Run first time
