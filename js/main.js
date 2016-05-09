@@ -24,7 +24,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 		44838497: 5
 	});*/
 	
-	function goThroughSummonerList() {
+	/*function goThroughSummonerList() {
 		firebaseRef.child("summonerIds").once("value", function(summonerIds) {
 			var summonerList = summonerIds.val();
 			
@@ -230,7 +230,7 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 		});
 	}
 	// Run first time
-	goThroughMatchList();
+	goThroughMatchList();*/
 	
 	function goThroughBannedChamps() {
 		firebaseRef.child("bannedChamps").once("value", function(bannedChamps) {
@@ -275,29 +275,13 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 								}
 								
 								firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).once("value", function(snapshot) {
-									if (snapshot.child("championLevel").exists()) {
-										var temp = {};
-										temp[summonerId] = champLevel;
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championLevel").update(temp);
-									} else {
-										var temp = {};
-										temp[summonerId] = champLevel;
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-											championLevel: temp
-										});
-									}
-									
-									if (snapshot.child("championPoints").exists()) {
-										var temp = {};
-										temp[summonerId] = champPoints;
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championPoints").update(temp);
-									} else {
-										var temp = {};
-										temp[summonerId] = champPoints;
-										firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-											championPoints: temp
-										});
-									}
+									champLevel += snapshot.val()["championLevel"];
+									champPoints += snapshot.val()["championPoints"];
+									firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
+										championLevel: champLevel,
+										championPoints: champPoints,
+										summonersForAverage: counter2
+									});
 									
 									// Step through banned champ list
 									if (counter2 < Object.keys(summonerIdList).length) {
