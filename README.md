@@ -2,6 +2,10 @@
 
 This website is designed to pick the top banned champions from ranked games that occurred during the recent URF mode. The website calculates how many times they’ve been banned and collects player to player champion mastery while displayed in a fun, unique environment.
 
+## Riot API Challenge
+See the Riot API Challenge [here](https://developer.riotgames.com/discussion/announcements/show/eoq3tZd1).
+View the API Challenge rules [here](https://developer.riotgames.com/api-challenge-rules).
+
 ## Testing
 You can see this live by running it through [rawgit](https://rawgit.com/victhebeast/Piltover-s-Most-Wanted/master/index.html).
 
