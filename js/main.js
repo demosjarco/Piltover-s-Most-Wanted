@@ -12,12 +12,6 @@ firebaseRef.child("summonerIds").set({
 firebaseRef.child("matchIds").set({
 	0: false
 });*/
-firebaseRef.on("value", function(snapshot) {
-	var summoners = snapshot.val()["summonerIds"];
-	var games = snapshot.val()["matchIds"];
-	console.log("Summoners loaded :" + Object.keys(summoners).length);
-	console.log("Games loaded :" + Object.keys(games).length);
-});
 
 firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 	/*firebaseRef.child("bannedChamps/0/champlevels").update({
