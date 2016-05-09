@@ -86,10 +86,10 @@ footer {
 
 #corkboard #description {
 	padding: 5px;
-	position: absolute;
-	top: -9px;
+	position: relative;
+	top: -50px;
 	left: 5px;
-	right: 350px;
+	width: calc(100% - 375px);
 	
 	font-family: cursive;
 	
@@ -122,7 +122,7 @@ input:focus { outline: none; }
 #grid {
 	display: block;
 	margin: 10px;
-	margin-top: 26px;
+	margin-top: 0;
 }
 #grid .item {
 	position: relative;
