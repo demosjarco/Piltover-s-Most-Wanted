@@ -267,21 +267,18 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 							},
 							dataType: 'json',
 							success: function(data) {
-								var champLevel = 0;
 								var champPoints = 0;
 								if (data) {
-									champLevel = data["championLevel"];
 									champPoints = data["championPoints"];
 								}
 								
 								firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).once("value", function(snapshot) {
-									champLevel += snapshot.val()["championLevel"];
 									champPoints += snapshot.val()["championPoints"];
 									firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-										championLevel: champLevel,
 										championPoints: champPoints,
 										summonersForAverage: counter2
 									});
+									firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championLevel").remove();
 									
 									// Step through banned champ list
 									if (counter2 < Object.keys(summonerIdList).length) {
