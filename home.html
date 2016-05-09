@@ -5,14 +5,20 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui" />
 <title>Piltover's Most Wanted</title>
 <link href="css/main.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Reenie+Beanie" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<input id="numberOfBannedChampsToLoad" type="number" min="1" value="10" onChange="loadUI()" />
-<div id="background">
+<div id="corkboard">
+	<header>Piltover's Most Wanted</header>
+	<div id="defNotBlitzPoro"></div>
+	<div id="instructions">Choose how many champions<br />you want to see at once</div>
+	<p id="description">Ever wonder if there is a correlation to why people are banned and the average champion mastery for the player base? Is the champion with the highest % ban rate also the highest average champion mastery? Let's find out the truth this URF weekend (4/22 - 4/25), because only serious people play ranked when URF is out (eliminating most troll games).</p>
+	<input id="numberOfBannedChampsToLoad" type="number" min="1" value="10" onChange="loadUI()" />
 	<div id="grid">
 	</div>
 </div>
+<footer></footer>
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 <script src="js/circle-progress.js"></script>
