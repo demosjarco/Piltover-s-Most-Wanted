@@ -233,72 +233,52 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 	goThroughMatchList();*/
 	
 	function goThroughBannedChamps() {
-		firebaseRef.child("bannedChamps").once("value", function(bannedChamps) {
-			var bannedChampList = bannedChamps.val();
-			
-			var counter1 = 0;
-			function manualForLoop1(arr1) {
-				var bannedChamp = bannedChampList[arr1[counter1]];
-				counter1++;
+		firebaseRef.child("bannedChamps").on("child_added", function(bannedChamp) {
+			firebaseRef.child("summonerIds").once("value", function(summonerIds) {
+				var summonerIdList = summonerIds.val();
 				
-				firebaseRef.child("summonerIds").once("value", function(summonerIds) {
-					var summonerIdList = summonerIds.val();
+				var counter2 = 0;
+				function manualForLoop2(arr2) {
+					var summonerId = summonerIdList[arr2[counter2]]["summonerId"];
+					counter2++;
 					
-					var counter2 = 0;
-					function manualForLoop2(arr2) {
-						var summonerId = summonerIdList[arr2[counter2]]["summonerId"];
-						counter2++;
-						
-						$.ajax({
-							type: 'GET',
-							url: 'https://na.api.pvp.net/championmastery/location/NA1/player/' + summonerId + '/champion/' + bannedChamp["champId"] + '?api_key=' + key.val(),
-							async: true,
-							error: function(errorContent) {
-								console.log(errorContent);
-								// Just skip
+					$.ajax({
+						type: 'GET',
+						url: 'https://na.api.pvp.net/championmastery/location/NA1/player/' + summonerId + '/champion/' + bannedChamp.val()["champId"] + '?api_key=' + key.val(),
+						async: true,
+						error: function(errorContent) {
+							console.log(errorContent);
+							// Just skip
+							if (counter2 < Object.keys(summonerIdList).length) {
+								manualForLoop2(Object.keys(summonerIdList));
+							}
+						},
+						dataType: 'json',
+						success: function(data) {
+							var champPoints = 0;
+							if (data) {
+								champPoints = data["championPoints"];
+							}
+							
+							firebaseRef.child("bannedChamps/" + bannedChamp.val()["champId"]).once("value", function(snapshot) {
+								champPoints += snapshot.val()["championPoints"];
+								firebaseRef.child("bannedChamps/" + bannedChamp.val()["champId"]).update({
+									championPoints: champPoints,
+									summonersForAverage: counter2
+								});
+								firebaseRef.child("bannedChamps/" + bannedChamp.val()["champId"] + "/championLevel").remove();
+								
+								// Step through banned champ list
 								if (counter2 < Object.keys(summonerIdList).length) {
 									manualForLoop2(Object.keys(summonerIdList));
-								} else {
-									// Step through banned champ list
-									if (counter1 < Object.keys(bannedChampList).length) {
-										manualForLoop1(Object.keys(bannedChampList));
-									}
 								}
-							},
-							dataType: 'json',
-							success: function(data) {
-								var champPoints = 0;
-								if (data) {
-									champPoints = data["championPoints"];
-								}
-								
-								firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).once("value", function(snapshot) {
-									champPoints += snapshot.val()["championPoints"];
-									firebaseRef.child("bannedChamps/" + bannedChamp["champId"]).update({
-										championPoints: champPoints,
-										summonersForAverage: counter2
-									});
-									firebaseRef.child("bannedChamps/" + bannedChamp["champId"] + "/championLevel").remove();
-									
-									// Step through banned champ list
-									if (counter2 < Object.keys(summonerIdList).length) {
-										manualForLoop2(Object.keys(summonerIdList));
-									} else {
-										// Step through banned champ list
-										if (counter1 < Object.keys(bannedChampList).length) {
-											manualForLoop1(Object.keys(bannedChampList));
-										}
-									}
-								});
-							},
-						});
-					}
-					// Run first time
-					manualForLoop2(Object.keys(summonerIdList));
-				});
-			}
-			// Run first time
-			manualForLoop1(Object.keys(bannedChampList));
+							});
+						},
+					});
+				}
+				// Run first time
+				manualForLoop2(Object.keys(summonerIdList));
+			});
 		});
 	}
 	// Run first time
