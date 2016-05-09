@@ -305,5 +305,5 @@ firebaseRef.child("apiControl/apiKey").once("value", function(key) {
 		});
 	}
 	// Run first time
-	goThroughBannedChamps();
+	// goThroughBannedChamps();
 });
