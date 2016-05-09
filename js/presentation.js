@@ -18,15 +18,14 @@ function loadUI() {
 		
 		firebaseRef.child("bannedChamps").once("value", function(snapshot2) {
 			$("#numberOfBannedChampsToLoad").attr({"max": Object.keys(snapshot2.val()).length});
-			firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_added", function(snapshot) {
-			// firebaseRef.child("bannedChamps").limitToFirst(numberToLoad).on("child_added", function(snapshot) {
+			firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_changed", function(snapshot) {
+			//firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_added", function(snapshot) {
 				count++;
 				var percentage = (snapshot.val()["timesBanned"] / numberOfGames);
 				var nicePercentage = Math.round(percentage * 1000) / 10;
 				
 				var averageChampLevel = 1;
 				var averageChampPoints = snapshot.val()["championPoints"] / snapshot.val()["summonersForAverage"];
-				console.log(averageChampPoints);
 				var outOfChampPoints = 0;
 				if (averageChampPoints < 1800) {
 					// Level 1
@@ -50,12 +49,13 @@ function loadUI() {
 					outOfChampPoints = averageChampPoints;
 				}
 				
-				$("#grid").append('<div class="item"><div class="champImage ' + snapshot.val()["champId"] + '"></div><span class="banPercent">' + nicePercentage + '%</span><span class="champLevel">Level ' + averageChampLevel + '</span></div>');
+				$(".item." + snapshot.val()["champId"]).remove();
+				$("#grid").append('<div class="item ' + snapshot.val()["champId"] + '"><div class="champImage ' + snapshot.val()["champId"] + '"></div><span class="banPercent">' + nicePercentage + '%</span><span class="champLevel">Level ' + averageChampLevel + '</span></div>');
 				$(".champImage." + snapshot.val()["champId"]).circleProgress({
 					value: averageChampPoints / outOfChampPoints,
-					size: 105,
+					size: 102,
 					fill: {
-						gradient: ["#8F7514", "#C9A932"]
+						color: "#0a968b"
 					}
 				});
 				setTimeout(function(){loadChampImage(snapshot.val()["champId"])}, 0);
