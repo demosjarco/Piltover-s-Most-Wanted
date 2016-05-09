@@ -5,12 +5,63 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui" />
 <title>Piltover's Most Wanted</title>
 <style type="text/css">
+#grid {
+	display: block;
+	margin: 20px;
+}
+#grid .item {
+	position: relative;
+	display: inline-block;
+	margin: 5px;
+	
+	width: 105px;
+	height: 105px;
+	
+	color: white;
+}
+#grid .item .champImage {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -2;
+	border-radius: 50%;
+	
+	background-color: rgba(0, 0, 0, 0.33);
+	background-position: center center;
+	background-blend-mode: multiply;
+}
+
+#grid .item .banPercent {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-size: xx-large;
+}
+
+#grid .item .champLevel {
+	position: absolute;
+	left: 50%;
+	bottom: 12.5%;
+	transform: translateX(-50%);
+	
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	font-size: medium;
+}
 </style>
 </head>
 
 <body>
+<input id="numberOfBannedChampsToLoad" type="number" min="1" value="10" onChange="loadUI()" />
+<div id="background">
+	<div id="grid">
+	</div>
+</div>
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+<script src="js/circle-progress.js"></script>
 <script async defer src="js/main.js"></script>
 <script async defer src="js/presentation.js"></script>
 </body>
