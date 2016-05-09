@@ -18,8 +18,8 @@ function loadUI() {
 		
 		firebaseRef.child("bannedChamps").once("value", function(snapshot2) {
 			$("#numberOfBannedChampsToLoad").attr({"max": Object.keys(snapshot2.val()).length});
-			firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_changed", function(snapshot) {
-			//firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_added", function(snapshot) {
+			//firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_changed", function(snapshot) {
+			firebaseRef.child("bannedChamps").orderByChild("timesBanned").limitToLast(numberToLoad).on("child_added", function(snapshot) {
 				count++;
 				var percentage = (snapshot.val()["timesBanned"] / numberOfGames);
 				var nicePercentage = Math.round(percentage * 1000) / 10;
