@@ -1,9 +1,128 @@
-@charset "utf-8";
-/* CSS Document */
+body {
+	margin: 0;
+	padding: 0;
+	
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	
+	background-image: url(../images/21555920-seamless-concrete-texture-wall-old-background-grunge-stone-cement-material-rough-dirty-white-Stock-Photo.jpg);
+	background-size: 250px;
+	background-position: center center;
+}
+
+#corkboard {
+	position: relative;
+	margin: 50px;
+	
+	border: 16px solid transparent;
+	border-top: 45px solid transparent;
+	border-bottom: 23px solid transparent;
+	-webkit-border-image: url(../images/10645.jpg) 59 round;
+	-o-border-image: url(../images/10645.jpg) 59 round;
+	border-image: url(../images/10645.jpg) 59 round;
+	
+	background-image: url(../images/fzm-seamless.corkboard.texture-01-%5B500x500%5D.jpg);
+	
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+}
+
+#corkboard header {
+	position: relative;
+	top: -42px;
+	width: 100%;
+	
+	font: xx-large Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", sans-serif;
+	text-align: center;
+	color: white;
+}
+
+footer {
+	position: relative;
+	top: -71px;
+	bottom: 0;
+	width: 100%;
+	
+	text-align: center;
+	
+	color: white;
+}
+
+#corkboard #defNotBlitzPoro {
+	position: absolute;
+	left: -13.5px;
+	top: -42.5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	
+	background-image: url(../images/Definetly_Not_Blitzcrank_Poro_Icon.png);
+	background-size: 100% 100%;
+}
+
+#corkboard #instructions {
+	padding: 5px;
+	padding-bottom: 0;
+	position: absolute;
+	top: 10px;
+	right: 75px;
+	z-index: 2;
+	-o-transform: rotate(-3deg);
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	
+	width: 250px;
+	height: 50px;
+	
+	font-family: cursive;
+	color: white;
+	
+	background-image: url(../images/upArrow.png);
+	background-size: contain;
+	-moz-box-shadow:5px 5px 7px rgba(33, 33, 33, 1);
+	-webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+	box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+}
+
+#corkboard #description {
+	padding: 5px;
+	position: absolute;
+	top: -9px;
+	left: 5px;
+	right: 350px;
+	
+	font-family: cursive;
+	
+	background-color: #eee;
+	-moz-box-shadow:5px 5px 7px rgba(33, 33, 33, 1);
+	-webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+	box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+}
+
+input {
+	position: absolute;
+	top: -40px;
+	right: 5px;
+	-o-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+	-moz-transform: rotate(5deg);
+	
+	border: none;
+	
+	font-family: 'Reenie Beanie', cursive;
+	font-size: xx-large;
+	
+	background-color: #ffc;
+	-moz-box-shadow:5px 5px 7px rgba(33, 33, 33, 1);
+	-webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+	box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+}
+input:focus { outline: none; }
 
 #grid {
 	display: block;
-	margin: 20px;
+	margin: 10px;
+	margin-top: 26px;
 }
 #grid .item {
 	position: relative;
@@ -19,7 +138,7 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	z-index: -2;
+	/* z-index: -2; */
 	border-radius: 50%;
 	
 	background-color: rgba(0, 0, 0, 0.33);
