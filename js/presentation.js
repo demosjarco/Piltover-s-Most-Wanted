@@ -1,6 +1,10 @@
 // Presenting the content
 var firebaseRef = new Firebase("https://pilt-most-want.firebaseio.com/");
 
+firebaseRef.on("value", function(snapshot) {
+	$("footer").text(Object.keys(snapshot.val()["matchIds"]).length + " games loaded containing " + Object.keys(snapshot.val()["summonerIds"]).length + " summoners which banned " + Object.keys(snapshot.val()["bannedChamps"]).length + " champions");
+});
+
 function loadUI() {
 	// Disable until finished loading
 	$("#numberOfBannedChampsToLoad").prop("disabled", true);
