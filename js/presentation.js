@@ -54,7 +54,7 @@ function loadUI() {
 				}
 				
 				$(".item." + snapshot.val()["champId"]).remove();
-				$("#grid").append('<div class="item ' + snapshot.val()["champId"] + '"><div class="champImage ' + snapshot.val()["champId"] + '"></div><span class="banPercent">' + nicePercentage + '%</span><span class="champLevel">Level ' + averageChampLevel + '</span></div>');
+				$("#grid").append('<div class="item ' + snapshot.val()["champId"] + '"><div class="champImage ' + snapshot.val()["champId"] + '"></div><span class="banPercent">' + nicePercentage + '%</span><span class="champLevel">Level ' + averageChampLevel + '</span><span class="champName ' + snapshot.val()["champId"] + '"></span></div>');
 				$(".champImage." + snapshot.val()["champId"]).circleProgress({
 					value: averageChampPoints / outOfChampPoints,
 					size: 102,
@@ -91,6 +91,7 @@ function loadChampImage(champId) {
 			dataType: 'json',
 			success: function(data) {
 				$(".champImage." + champId).css("background-image", "url(https://ddragon.leagueoflegends.com/cdn/6.9.1/img/champion/" + data["image"]["full"] + ")");
+				$(".champName." + champId).text(data["name"]);
 			},
 		});
 	});
